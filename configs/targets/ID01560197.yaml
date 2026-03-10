@@ -1,0 +1,41 @@
+target:
+  code: "ID01560197"
+  name: "材料指标4"
+  description: "材料价格指标"
+
+data:
+  min_train_samples: 300        # 最小训练样本数
+
+# 特征构建
+feature_builder: "ID01560197"   # 使用 src/features/targets/ID01560197_features.py
+
+# 当前使用的模型
+# active_model: "sarima"          # lgbm/sarima/ensemble
+active_model: "lgbm"          # lgbm/sarima/ensemble
+
+# LGBM模型配置
+lgbm:
+  data:
+    years: 5                    # 使用最近5年数据
+  best_params:
+    n_estimators: 200
+    learning_rate: 0.05
+    max_depth: 5
+    num_leaves: 25
+    min_child_samples: 20
+    subsample: 0.8
+    colsample_bytree: 0.8
+
+# SARIMA模型配置
+sarima:
+  data:
+    years: 1                    # 使用最近1年数据（最优配置）
+  search_params:
+    s: 14                       # 季节周期：双周周期（最优配置，MAPE: 3.8514%）
+  best_params:
+    order: [1, 1, 1]
+    seasonal_order: [1, 0, 1, 14]
+
+prediction:
+  horizon_days: 30
+  n_predictions: 50             # 预测50天

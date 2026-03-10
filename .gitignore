@@ -1,0 +1,12 @@
+.claude/
+.idea/
+__pycache__/
+*.pyc
+.DS_Store
+*.log
+need_predict_data/
+predictions/
+raw_data/
+sarima_prediction/
+models_backup_old/
+docs/
